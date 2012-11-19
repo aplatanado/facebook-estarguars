@@ -18,7 +18,8 @@
         var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
         var results = {quotes: []};
         for each (var item in search.*) {
-          results.quotes.push(item.toString());
+          // results.quotes.push(item.toString());
+          results.quotes.push(item.localName());
         }
         response.object = results;
         ]]>
