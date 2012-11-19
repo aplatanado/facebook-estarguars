@@ -7,7 +7,7 @@
     <sampleQuery>select * from {table}</sampleQuery>
   </meta>  
   <bindings>
-    <select itemPath="results.quote" produces="JSON">
+    <select itemPath="result.quotes" produces="JSON">
       <urls>
         <url></url>
       </urls>
@@ -18,7 +18,7 @@
         var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
         var results = {quotes: []};
         for each (var item in search.*) {
-          results.quotes.push({"content": item.toString()});
+          results.quotes.push(item.toString());
         }
         response.object = results;
         ]]>
