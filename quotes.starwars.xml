@@ -15,7 +15,11 @@
         <![CDATA[
         var url = "http://es.wikiquote.org/wiki/La_Guerra_de_las_Galaxias";
         var xpath = "//*[@id='bodyContent']/*[@id='mw-content-text']/h2[1]/following-sibling::*[self::ul or self::dl or self::p]";
-        var results = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
+        var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
+        var results = {quotes: []};
+        for each (var item in search.*) {
+          results.quotes.push({"content": item.toString()});
+        }
         response.object = results;
         ]]>
       </execute>
