@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
+  <meta>
+    <author>Jesús Torres</author>
+    <documentationURL>https://github.com/aplatanado/facebook-estarguars/blob/master/README.md</documentationURL>
+    <description>List of Star Wars quotes taken from es.wikiquote.org</description>
+    <sampleQuery>select * from {table}</sampleQuery>
+  </meta>  
+  <bindings>
+    <select itemPath="result.quotes" produces="JSON">
+      <urls>
+        <url></url>
+      </urls>
+      <execute>
+        <![CDATA[
+        var url = "http://es.wikiquote.org/wiki/La_Guerra_de_las_Galaxias";
+        var xpath = "//*[@id='bodyContent']/*[@id='mw-content-text']/h2[1]/following-sibling::*[self::ul or self::dl or self::p]";
+        var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
+        var results = {quotes: []};
+        var length = 0;
+        for each (var item in search.*) {
+          if (item.localName() == "ul")
+            length = results.quotes.push(item.toString());
+          else
+            results.quotes[length - 1] += item.toString();
+        }
+        response.object = results;
+        ]]>
+      </execute>
+    </select>
+  </bindings>
+</table>
