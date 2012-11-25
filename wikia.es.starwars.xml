@@ -17,7 +17,7 @@
       <execute>
         <![CDATA[
         var baseUrl = "http://es.starwars.wikia.com/wiki/";
-        if (article.slice(0, baseUrl.length) === baseUrl)
+        if (article.slice(0, baseUrl.length) !== baseUrl)
           y.exit();
 
         var xpath = "//*[@id='WikiaMainContent']/header | " +
