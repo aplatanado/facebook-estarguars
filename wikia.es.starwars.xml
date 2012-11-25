@@ -13,14 +13,15 @@
       </urls>
       <execute>
         <![CDATA[
-        var url = "http://es.starwars.wikia.com/wiki/Categor%C3%ADa:Art%C3%ADculos_destacados";
+        var baseUrl = "http://es.starwars.wikia.com"
+        var url = baseUrl + "/wiki/Categor%C3%ADa:Art%C3%ADculos_destacados";
         var xpath = "//div[@id='mw-pages']//li/a";
         var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
         var results = {featuredArticles: []};
         for each (var item in search.*) {
           results.featuredArticles.push({
 	    "title": item.@title.toString(),
-            "url": item.@href.toString()
+            "url": baseUrl + item.@href.toString()
           })
         }
         response.object = results;
@@ -48,11 +49,11 @@
         var results = {article: {}};
         for each (var item in search.*) {
           if (item.localName() == "header")
-            results.article.title = item.h1
-          else if (item.@["class"] == "image")
-            results.article.imageUrl = item.@["href"]
+            results.article.title = item.h1.toString()
+          else if (item.@class == "image")
+            results.article.imageUrl = item.@href.toString()
           else if (item.@id == "mw-content-text")
-            results.article.abstract = item.p[0]
+            results.article.abstract = item.p[0].toString()
         }
         response.object = results;
         ]]>
