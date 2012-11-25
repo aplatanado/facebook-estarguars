@@ -7,7 +7,7 @@
     <sampleQuery>select * from {table}</sampleQuery>
   </meta>  
   <bindings>
-    <select itemPath="result" produces="JSON">
+    <select itemPath="result.articles" produces="JSON">
       <urls>
         <url />
       </urls>
@@ -24,20 +24,20 @@
           "//*[@id='WikiaMainContent']//*[@id='mw-content-text']//*[@class='infoboximage']//a[@class='image'] | " +
           "//*[@id='WikiaArticle']/*[@id='mw-content-text']";
         var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:article, xpath:xpath}).results;
-        var results = {article: {}};
+        var results = {articles: [{"url": article}]};
         for each (var item in search.*) {
           if (item.localName() == "header")
-            results.article.title = item.h1.toString();
+            results.articles[0].title = item.h1.toString();
           else if (item.@['class'] == "image")
-            results.article.imageUrl = item.@href.toString();
+            results.articles[0].imageUrl = item.@href.toString();
           else if (item.@id == "mw-content-text")
-            results.article.firstParagraph = item.p[0].toString();
+            results.articles[0].firstParagraph = item.p[0].toString();
         }
         response.object = results;
         ]]>
       </execute>
     </select>
-    <select itemPath="result.featuredArticles" produces="JSON">
+    <select itemPath="result.articles" produces="JSON">
       <urls>
         <url />
       </urls>
@@ -47,9 +47,9 @@
         var url = baseUrl + "/wiki/Categor%C3%ADa:Art%C3%ADculos_destacados";
         var xpath = "//div[@id='mw-pages']//li/a";
         var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
-        var results = {featuredArticles: []};
+        var results = {articles: []};
         for each (var item in search.*) {
-          results.featuredArticles.push({
+          results.articles.push({
 	    "title": item.@title.toString(),
             "url": baseUrl + item.@href.toString()
           })
