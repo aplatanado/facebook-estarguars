@@ -23,8 +23,8 @@
         var xpathHeader = "//*[@id='WikiaMainContent']/header";
         var xpathImage = "//*[@id='WikiaMainContent']//*[@id="mw-content-text"]//*[@class="infoboximage"]//a[@class="image"]";
         var xpathContent = "//*[@id='WikiaArticle']/*[@id='mw-content-text']";
-        var search = y.query("select * from html where url=@url and compat='html5' and
-          (xpath=@xpathHeader or xpath=xpathInfoBoxImage or xpath=xpathContent)'", {url:url, xpath:xpath}).results;
+        var search = y.query("select * from html where url=@url and compat='html5' and " +
+          "(xpath=@xpathHeader or xpath=xpathInfoBoxImage or xpath=xpathContent)", {url:url, xpath:xpath}).results;
         var results = {article: {}};
         for each (var item in search.*) {
           if (item.localName() == "header")
