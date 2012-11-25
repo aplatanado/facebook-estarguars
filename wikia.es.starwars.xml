@@ -28,11 +28,11 @@
         var results = {article: {}};
         for each (var item in search.*) {
           if (item.localName() == "header")
-            results.article.title = item.h1.toString()
+            results.article.title = item.h1.toString();
           else if (item.@['class'] == "image")
-            results.article.imageUrl = item.@href.toString()
+            results.article.imageUrl = item.@href.toString();
           else if (item.@id == "mw-content-text")
-            results.article.abstract = item.p[0].toString()
+            results.article.abstract = item.p[0].toString();
         }
         response.object = results;
         ]]>
