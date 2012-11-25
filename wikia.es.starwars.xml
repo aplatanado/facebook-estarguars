@@ -32,7 +32,7 @@
           else if (item.@['class'] == "image")
             results.article.imageUrl = item.@href.toString();
           else if (item.@id == "mw-content-text")
-            results.article.abstract = item.p[0].toString();
+            results.article.firstParagraph = item.p[0].toString();
         }
         response.object = results;
         ]]>
