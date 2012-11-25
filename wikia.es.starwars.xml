@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
+  <meta>
+    <author>Jesús Torres</author>
+    <documentationURL>https://github.com/aplatanado/facebook-estarguars/blob/master/README.md</documentationURL>
+    <description>Articles about Star Wars from es.starwars.wikia.com</description>
+    <sampleQuery>select * from {table}</sampleQuery>
+  </meta>  
+  <bindings>
+    <select itemPath="result.featuredArticles" produces="JSON">
+      <urls>
+        <url></url>
+      </urls>
+      <execute>
+        <![CDATA[
+        var url = "http://es.starwars.wikia.com/wiki/Categor%C3%ADa:Art%C3%ADculos_destacados";
+        var xpath = "//div[@id='mw-pages']//li/a";
+        var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
+        var results = {featuredArticles: []};
+        for each (var item in search.*) {
+          results.featuredArticles.push({
+	    "title": item.@title.toString(),
+            "url": item.@href.toString()
+          })
+        }
+        response.object = results;
+        ]]>
+      </execute>
+    </select>
+    <select itemPath="result.article" produces="JSON">
+      <urls>
+        <url></url>
+      </urls>
+      <inputs>
+        <key id="article" type="xs:string" paramType="variable" required="true"></key>
+      </inputs>
+      <execute>
+        <![CDATA[
+        var baseUrl = "http://es.starwars.wikia.com/wiki/";
+        if (article.slice(0, baseUrl.length) !== baseURL)
+          return;
+
+        var xpathHeader = "//*[@id='WikiaMainContent']/header";
+        var xpathImage = "//*[@id='WikiaMainContent']//*[@id="mw-content-text"]//*[@class="infoboximage"]//a[@class="image"]";
+        var xpathContent = "//*[@id='WikiaArticle']/*[@id='mw-content-text']";
+        var search = y.query("select * from html where url=@url and compat='html5' and
+          (xpath=@xpathHeader or xpath=xpathInfoBoxImage or xpath=xpathContent)'", {url:url, xpath:xpath}).results;
+        var results = {article: {}};
+        for each (var item in search.*) {
+          if (item.localName() == "header")
+            results.article.title = item.h1
+          else if (item.@["class"] == "image")
+            results.article.imageUrl = item.@["href"]
+          else if (item.@id == "mw-content-text")
+            results.article.abstract = item.p[0]
+        }
+        response.object = results;
+        ]]>
+      </execute>
+    </select>
+  </bindings>
+</table>
