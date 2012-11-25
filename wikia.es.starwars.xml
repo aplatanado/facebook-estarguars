@@ -20,15 +20,10 @@
         if (article.slice(0, baseUrl.length) === baseUrl)
           y.exit();
 
-        var xpathHeader = "//*[@id='WikiaMainContent']/header";
-        var xpathImage = "//*[@id='WikiaMainContent']//*[@id='mw-content-text']//*[@class='infoboximage']//a[@class='image']";
-        var xpathContent = "//*[@id='WikiaArticle']/*[@id='mw-content-text']";
-        var search = y.query("select * from html where url=@url and compat='html5' and (xpath=@xpathHeader or xpath=@xpathImage or xpath=@xpathContent)", {
-            url:article,
-            xpathHeader:xpathHeader,
-            xpathImage:xpathImage,
-            xpathContent:xpathContent
-          }).results;
+        var xpath = "//*[@id='WikiaMainContent']/header | " +
+          "//*[@id='WikiaMainContent']//*[@id='mw-content-text']//*[@class='infoboximage']//a[@class='image'] | " +
+          "//*[@id='WikiaArticle']/*[@id='mw-content-text']";
+        var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:article, xpath:xpath}).results;
         var results = {article: {}};
         for each (var item in search.*) {
           if (item.localName() == "header")
