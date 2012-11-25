@@ -7,27 +7,6 @@
     <sampleQuery>select * from {table}</sampleQuery>
   </meta>  
   <bindings>
-    <select itemPath="result.featuredArticles" produces="JSON">
-      <urls>
-        <url />
-      </urls>
-      <execute>
-        <![CDATA[
-        var baseUrl = "http://es.starwars.wikia.com"
-        var url = baseUrl + "/wiki/Categor%C3%ADa:Art%C3%ADculos_destacados";
-        var xpath = "//div[@id='mw-pages']//li/a";
-        var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
-        var results = {featuredArticles: []};
-        for each (var item in search.*) {
-          results.featuredArticles.push({
-	    "title": item.@title.toString(),
-            "url": baseUrl + item.@href.toString()
-          })
-        }
-        response.object = results;
-        ]]>
-      </execute>
-    </select>
     <select itemPath="result.article" produces="JSON">
       <urls>
         <url />
@@ -59,5 +38,26 @@
         ]]>
       </execute>
     </select>
-  </bindings>
+    <select itemPath="result.featuredArticles" produces="JSON">
+      <urls>
+        <url />
+      </urls>
+      <execute>
+        <![CDATA[
+        var baseUrl = "http://es.starwars.wikia.com"
+        var url = baseUrl + "/wiki/Categor%C3%ADa:Art%C3%ADculos_destacados";
+        var xpath = "//div[@id='mw-pages']//li/a";
+        var search = y.query("select * from html where url=@url and xpath=@xpath and compat='html5'", {url:url, xpath:xpath}).results;
+        var results = {featuredArticles: []};
+        for each (var item in search.*) {
+          results.featuredArticles.push({
+	    "title": item.@title.toString(),
+            "url": baseUrl + item.@href.toString()
+          })
+        }
+        response.object = results;
+        ]]>
+      </execute>
+    </select>
+ </bindings>
 </table>
