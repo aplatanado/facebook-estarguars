@@ -9,7 +9,7 @@
   <bindings>
     <select itemPath="result.featuredArticles" produces="JSON">
       <urls>
-        <url></url>
+        <url />
       </urls>
       <execute>
         <![CDATA[
@@ -30,10 +30,10 @@
     </select>
     <select itemPath="result.article" produces="JSON">
       <urls>
-        <url></url>
+        <url />
       </urls>
       <inputs>
-        <key id="article" type="xs:string" paramType="variable" required="true"></key>
+        <key id="article" type="xs:string" paramType="variable" required="true" />
       </inputs>
       <execute>
         <![CDATA[
