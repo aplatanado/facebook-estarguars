@@ -20,9 +20,9 @@
         var length = 0;
         for each (var item in search.*) {
           if (item.localName() == "ul")
-            length = results.quotes.push(item.toString());
+            length = results.quotes.push(item.toXMLString());
           else
-            results.quotes[length - 1] += item.toString();
+            results.quotes[length - 1] += item.toXMLString();
         }
         response.object = results;
         ]]>

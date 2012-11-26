@@ -31,7 +31,7 @@
           else if (item.@['class'] == "image")
             results.articles[0].imageUrl = item.@href.toString();
           else if (item.@id == "mw-content-text")
-            results.articles[0].firstParagraph = item.p[0].toString();
+            results.articles[0].firstParagraph = item.p[0].toXMLString();
         }
         response.object = results;
         ]]>
