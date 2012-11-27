@@ -1,8 +1,8 @@
-## Facebook Estarguars
+# Facebook Estarguars
 
-### YQL Open Data Tables
+## YQL Open Data Tables
 
-These Facebook applications use YQL to retrieve the data that they will use when running. So they do not have to run any code on server-side.
+These Facebook applications use [YQL](http://developer.yahoo.com/yql/guide/yql_overview_guide.html) to retrieve the data that they will use when running. So they do not have to run any code on server-side.
 
 The YQL Open Data Tables used are build scraping web pages that contains the information of interest to these applications (Wikipedia, Wikiquote, Wikia, etc.).
 
@@ -14,11 +14,11 @@ At this time, these are the Open Data Table defintion files created for this pro
 
 To simplify the access to these tables, [alltables.env](facebook-estarguars/blob/master/alltables.env) YQL enviroment file includes all of them.
 
-### JQuery plugin for YQL
+## JQuery plugin for YQL
 
 These Facebook applications depends on a [jQuery plugin for YQL](https://github.com/gabrielfalcao/jquery-yql). Currently, they are linked directly to the master branch of this project (release 0.3.0), but this can change in the near future.
 
-### License
+## License
 
 >   Copyright 2012 Jesús Torres &lt;mtorres@ull.es&gt;
 >
