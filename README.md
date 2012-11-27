@@ -14,3 +14,23 @@ At this time, these are the Open Data Table defintion files created for this pro
 
 To simplify the access to these tables, [alltables.env](facebook-estarguars/blob/master/alltables.env) YQL enviroment file includes all of them.
 
+### JQuery plugin for YQL
+
+These Facebook applications depends on a [jQuery plugin for YQL](https://github.com/gabrielfalcao/jquery-yql). Currently, they are linked directly to the master branch of this project (release 0.3.0), but this can change in the near future.
+
+### License
+
+>   Copyright 2012 Jesús Torres &lt;mtorres@ull.es&gt;
+>
+> Licensed under the Apache License, Version 2.0 (the "License");
+> you may not use this file except in compliance with the License.
+> You may obtain a copy of the License at
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;http://www.apache.org/licenses/LICENSE-2.0
+>
+> Unless required by applicable law or agreed to in writing, software
+> distributed under the License is distributed on an "AS IS" BASIS,
+> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+> See the License for the specific language governing permissions and
+> limitations under the License.
+
